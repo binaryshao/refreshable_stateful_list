@@ -12,7 +12,6 @@ import 'event.dart';
 /// 该分页接口下标保存在 [pageNoUserIndex]，不可配置
 /// 刷新时，请求所有接口
 /// 上拉加载更多时，只请求分页接口
-/// 除了 [banner], 其余配置都是业务无关
 class RefreshableStatefulList extends StatefulWidget {
   /// 支持传入多个网络请求 [Future]
   /// 如果最后是分页接口，请传入 [Function]，因为页码在本控件内部维护

@@ -1,8 +1,8 @@
 name: refreshable_stateful_list
+version: 0.1.0
+author: binaryshao <shaojianbin@foxmail.com>
+homepage: https://github.com/binaryshao/refreshable_stateful_list
 description: refreshable list with views in multiple status (such as loading , empty, error) and give the chance to retry.
-version: 0.0.1
-author:
-homepage:
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
