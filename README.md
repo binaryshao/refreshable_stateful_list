@@ -5,8 +5,11 @@ refreshable list with views in multiple status (such as loading , empty, error) 
 支持下拉刷新、上拉加载的列表，同时列表会自动切换到不同状态（比如加载中、错误、空数据）下，在错误和空数据视图中可以重试。
 
 支持请求多个接口
+
 只有一个接口能分页，默认为 [_requests] 中最后一个接口
+
 刷新时，请求所有接口
+
 上拉加载更多时，只请求分页接口
 
 业务方可以控制很多配置，包括：
