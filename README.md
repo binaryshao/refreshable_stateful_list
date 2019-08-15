@@ -12,9 +12,10 @@ refreshable list with views in multiple status (such as loading , empty, error) 
 
 上拉加载更多时，只请求分页接口
 
+### 配置项
 业务方可以控制很多配置，包括：
 
-必传参数：
+#### 必传参数：
 - 数据源列表（_requests），有三种类型的数据源：
     - Future（此时按没有分页处理）
     - 返回值为 Future 的方法（此时按分页处理，传入的方法只允许有1个参数：页码）
@@ -23,15 +24,64 @@ refreshable list with views in multiple status (such as loading , empty, error) 
 - 每个数据源对应数据的 key，根据 key 获取每个接口返回的列表 （dataKeys）
 - 每个 item 的构建方法 （_buildItem，该方法会收到两个参数：数据 和 索引）
 
-可选参数：
+#### 可选参数：
 - 是否可以下拉刷新 （refreshable，默认为 true）
 - 分页时的初始页码 （initPageNo，默认为0）
-- 判断是否还能分页的 key （pageCountKey，默认为 pageCount）
+- 分页请求的总页数的 key （pageCountKey，默认为 pageCount）
 - 分隔线 （divider，默认为一条线）
 - 是否显示悬浮按钮，返回到列表顶部 （showFloating）
 - 监听事件，用于刷新列表数据 （listenTypes）
   要实现该功能，请使用 '/event' 中的 eventBus 发送事件
 
-APIs：
+### APIs：
 - jumpTo(double value)
 - animateTo(double offset, Duration duration, Curve curve)
+
+### example;
+#### 只传入一个不分页的数据源
+```
+  @override
+  Widget build(BuildContext context) {
+    return RefreshableStatefulList(
+      [http.get('https://www.wanandroid.com/tree/json')],
+      [''],
+      [''],
+      (item, index){},
+      divider: (index) {
+        return Container(
+          height: 20,
+        );
+      },
+      showFloating: false,
+      refreshable: false,
+    );
+  }
+```
+
+#### 传入两个数据源，第一个不分页，第二个分页
+```
+  articles(pageNo) {
+    return http.get('https://www.wanandroid.com/article/list/$pageNo/json');
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return RefreshableStatefulList(
+      [
+        http.get('https://www.wanandroid.com/tree/json'),
+        articles,
+      ],
+      [
+         '',
+        'datas',
+      ],
+      [
+        '',
+        '',
+       ],
+      (item, index){},
+      initPageNo: 1,
+      pageCountKey: 'totalPageCount',
+    );
+  }
+```
